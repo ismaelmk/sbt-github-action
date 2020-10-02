@@ -75,6 +75,6 @@ libraryDependencies += "org.scala-lang.modules" %% "scala-parser-combinators" % 
 
 // To learn more about multi-project builds, head over to the official sbt
 // documentation at http://www.scala-sbt.org/documentation.html
-val ARTIFACT_TOKEN = sys.env.get("GH_TOKEN_SAMPLE").getOrElse("")
+val ARTIFACT_TOKEN = sys.env.get("ARTIFACT_TOKEN").getOrElse("")
 val x = println("Token:"+ARTIFACT_TOKEN)
 
