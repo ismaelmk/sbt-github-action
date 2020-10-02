@@ -78,3 +78,31 @@ libraryDependencies += "org.scala-lang.modules" %% "scala-parser-combinators" % 
 val ARTIFACT_TOKEN = sys.env.get("ARTIFACT_TOKEN").getOrElse("")
 val x = println("Token:"+ARTIFACT_TOKEN)
 
+val dep1 = if(ARTIFACT_TOKEN.length() > 0 ){ 
+   "org.scala-lang" % "scala-library" % "2.13.3"
+}else{
+   "org.scala-lang.modules" %% "scala-xml" % "1.2.0"
+}
+
+val d = println("dep:"+dep1)
+
+val credentialGhpckg = if(ARTIFACT_TOKEN.length() > 0){
+  Credentials( "GitHub Package Registry", "maven.pkg.github.com", "_", ARTIFACT_TOKEN)
+}
+else{
+  Credentials( "Empty Registry", "", "_", "")
+}
+
+val resolverGhpckg = if(ARTIFACT_TOKEN.length() > 0){
+   "GitHubPackages-base-api" at s"https://maven.pkg.github.com/getOyster/oyster_base_api"
+}else{
+	Resolver.mavenLocal
+}
+
+lazy val hello = (project in file("."))
+  .settings(
+    name := "Hello",
+    libraryDependencies += dep1,
+    credentials += credentialGhpckg,
+    resolvers += resolverGhpckg,
+  )
